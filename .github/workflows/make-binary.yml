@@ -6,6 +6,8 @@ on:
       - created
 jobs:
   build-binary:
+    permissions:
+      contents: write
     runs-on:
       labels:
         - ubuntu-latest
