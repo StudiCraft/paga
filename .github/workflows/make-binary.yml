@@ -1,0 +1,24 @@
+name: Automatic Binary Builder
+run-name: Building Binary
+on:
+  release:
+    types:
+      - created
+jobs:
+  build-binary:
+    runs-on:
+      labels:
+        - ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v6
+      - name: Install rustup
+        run: sudo apt update && sudo apt install rustup
+      - name: Install Rust
+        run: rustup default stable && rustup update
+      - name: Build Binary
+        run: cargo build --release
+      - name: Upload To Release
+        run: gh release upload ${{ github.event.release.tag_name }} ./target/release/paga
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
