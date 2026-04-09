@@ -1,0 +1,24 @@
+name: Automatic Crate Publisher
+run-name: Publishing Crate
+on:
+  release:
+    types:
+      - created
+jobs:
+  publish-crate:
+    permissions:
+      contents: write
+    runs-on:
+      labels:
+        - ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v6
+      - name: Install rustup
+        run: sudo apt update && sudo apt install rustup
+      - name: Install Rust
+        run: rustup default stable && rustup update
+      - name: Auth Crate
+        run: cargo login ${{ secrets.CRATE_AUTH_TOKEN }}
+      - name: Publish Crate
+        run: cargo publish
