@@ -24,3 +24,20 @@ jobs:
         run: gh release upload ${{ github.event.release.tag_name }} ./target/release/paga
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  publish-crate:
+    permissions:
+      contents: write
+    runs-on:
+      labels:
+        - ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v6
+      - name: Install rustup
+        run: sudo apt update && sudo apt install rustup
+      - name: Install Rust
+        run: rustup default stable && rustup update
+      - name: Auth Crate
+        run: cargo login ${{ secrets.CRATE_AUTH_TOKEN }}
+      - name: Publish Crate
+        run: cargo publish
