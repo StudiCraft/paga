@@ -1,5 +1,5 @@
-name: Automatic Binary Builder
-run-name: Building Binary
+name: Automatic Package Builder and Publisher
+run-name: Building and Publishing package
 on:
   release:
     types:
