@@ -5,6 +5,6 @@ edition = "2024"
 description="A new more/less alternative written in Rust. Currently in development and for my own learning purposes only."
 license="Apache-2.0"
 repository="https://github.com/StudiCraft/paga"
-readme="README.MD"
+readme="README.md"
 
 [dependencies]
